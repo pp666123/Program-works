@@ -1,0 +1,69 @@
+import random        
+def game_start():
+#產生答案
+    num_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    answer = random.sample(num_list, 4)
+    print(answer)
+#輸入數字
+    while True:
+        guess = str(input("請輸入4個數字"))
+        #檢查輸入數字是否為4位且為數字
+        if len(guess) == 4 and guess.isdigit(): 
+            #把輸入之str數字轉成list, int數字
+            guess_list = list(map(int, guess))
+            #將list轉成set集合
+            guess_set = set(guess_list)       
+            #檢查數字是否重複
+            #set集合內之數字不可重複，如重複長度將小於4
+            if len(guess_set) == 4:
+                guess_set = guess_list                
+                break
+        print('請輸入不重複的4位數字!!')
+#確認數字幾A幾B
+    while True:
+        A = 0
+        B = 0
+     #   i = 0
+     #   o = 0
+        for i in range(0, 4):
+            if guess_set[i] == answer[i]:
+                A+=1
+            if guess_set[i] != answer[i]:    
+                for o in range(0, 4):          
+                    if guess_set[i] == answer[o]:
+                        B+=1
+        print(str(A)+'A'+str(B)+'B')
+        if A == 4:
+            print('YOU WIN!')
+            break         
+        if A != 4:
+            while True:
+                guess = str(input("請輸入4個數字"))
+                #檢查輸入數字是否為4位且為數字
+                if len(guess) == 4 and guess.isdigit(): 
+                    #把輸入之str數字轉成list, int數字
+                    guess_list = list(map(int, guess))
+                    #將list轉成set集合
+                    guess_set = set(guess_list)       
+                    #檢查數字是否重複
+                    #set集合內之數字不可重複，如重複長度將小於4
+                    if len(guess_set) == 4:
+                        guess_set = guess_list                
+                        break
+                print('請輸入不重複的4位數字!!')       
+def game_again():
+    while True:
+        again = input('DO YOU WANT TO PLAY AGAIN? (y/n)?')
+        if again == 'y':
+            game_start()
+        if again == 'n':
+            break
+        if again == 'bye':
+            print('BYEBYE!!')
+            break
+        else:
+            if again != 'y':
+                print('請輸入英文小寫y or n或輸入bye離開遊戲')
+                
+game_start()
+game_again()
