@@ -1,0 +1,47 @@
+import random 
+
+def answer_show():  
+    num = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    answer = list((random.sample(num, 4)))
+    print(answer)
+    return answer
+def user_enter():
+    while True:
+        guess = str(input("請輸入要猜的4位數字"))
+        if len(guess) == 4 and guess.isdigit():
+            if len(set(guess)) == 4:
+                guess = list(guess)
+                return guess
+        print("只能輸入4個不重複的數字，不要輸入亂七八糟的東西喔!")  
+def game_start(answer, guess):
+    while True:
+        guess = list(map(int, guess))
+        A = 0
+        B = 0
+        for i in range(4):
+            if guess[i] == answer[i]:
+                A+=1
+            else:
+                for o in range(4):
+                    if guess[i] == answer[o]:
+                        B+=1
+        print("A"+str(A)+"B"+str(B))
+        if A == 4:
+            break
+        else: 
+            guess = user_enter()
+def game_again():
+    while True:
+        again = input("還要玩嗎? y/n ??")
+        if again == "y":
+            print("HELLO 來玩猜數字囉~")
+            game_start(answer_show(), user_enter())
+            game_again()
+            break
+        if again == "n":
+            break
+        print("還要玩嗎? y/n ?????(請輸入小寫英文)")
+#start
+print("HELLO 來玩猜數字囉~")
+game_start(answer_show(), user_enter())
+game_again()
